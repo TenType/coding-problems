@@ -18,9 +18,9 @@ def solution(board: list[list[int]], col: int) -> bool:
             if run == 0 and direction == -1:
                 continue
 
-            for step in range(1 * direction, 4 * direction, direction):
-                row_check = row + rise * step
-                col_check = col + run * step
+            for step in range(1, 4):
+                row_check = row + rise * step * direction
+                col_check = col + run * step * direction
 
                 # Out of bounds or not matching
                 if (row_check < 0 or row_check >= row_len
