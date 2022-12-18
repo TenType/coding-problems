@@ -12,18 +12,19 @@ def int_to_bitboard(n: int, rows = 7, cols = 7) -> list[list[int]]:
     ```
     where 0 is the right-most bit.
     """
-    # Convert to a string of bits (without the '0b' prefix)
-    bitstring = bin(n)[2:]
-
-    # Add padding
-    padding = rows * cols - len(bitstring)
-    bitstring = '0' * padding + bitstring
-
-    # Append rows
     bitboard = []
-    for i in range(rows * (cols - 1), rows * cols):
-        row = bitstring[i:0:-cols]
-        bitboard.append([int(bit) for bit in row])
+
+    for row in range(rows - 1, -1, -1):
+        bit_row = []
+        for col in range(0, cols):
+            # Calculate the index of the bit based on the configuration
+            index = col * 7 + row
+
+            # Determine whether the specific bit is set or not set
+            bit = n & (1 << index)
+
+            bit_row.append(0 if bit == 0 else 1)
+        bitboard.append(bit_row)
 
     return bitboard
 
